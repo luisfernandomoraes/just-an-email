@@ -173,10 +173,11 @@ namespace JustSending.Services
             await CheckIfShareTokenExists(sessionId);
 
             var numDevices = _db.Connections.Count(x => x.SessionId == sessionId);
-            await SendNumberOfDevices(sessionId, numDevices);
-
+            
             if (numDevices > 1)
             {
+                await SendNumberOfDevices(sessionId, numDevices);
+                
                 await InitKeyExchange(sessionId);
                 await CancelShare();
             }
